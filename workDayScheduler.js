@@ -6,9 +6,7 @@ $(document).ready(function() {
       }
       setInterval(liveTime, 1000);
 
-      }
-
-
+    
 
 
 
