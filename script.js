@@ -1,6 +1,8 @@
 $(document).ready(function() {
 
 //setting up global variables  
+var hourBlock = $(".hour")
+var inputBlock = $("input")
 var currentHour = moment().format("HH") // current time to check against past, present, and future
 
 // array of objects that correspond to scheduler rows
@@ -70,8 +72,8 @@ var hourIntervals = [
   function scheduleLayout() {
     var timeBlock = $("<div>", { "class": "time-block "});
     var rowBlock = $("<div>", { "class": "row" });
-    var hourBlock = $("<div>", { "class": "hour" });
-    var inputBlock = $("<input>", { "type": "text" });
+    hourBlock = $("<div>", { "class": "hour" });
+    inputBlock = $("<input>", { "type": "text" });
     var saveBtnBlock = $("<div>", { "class": "saveBtn" });
     var saveBtnIcon = $("<i>", { "class": "fas fa-lock fa-2x"})
     inputBlock.addClass("textInput");
@@ -81,5 +83,23 @@ var hourIntervals = [
     $(".time").append(timeBlock);
   }
 
-  scheduleLayout()
-  })
+  
+  //use properties from hourIntervals object to populate each row using a for loop
+  for ( var i = 0; i < hourIntervals.length; i++ ) {
+    scheduleLayout();
+    var hourIntervalObject = hourIntervals[i];
+    if (`${hourIntervalObject.universalTime}` < 12) {
+      hourBlock.text(`${hourIntervalObject.hour} AM`);
+    } else {
+      hourBlock.text(`${hourIntervalObject.hour} PM`)
+    }
+
+    if ( hourIntervalObject.universalTime < currentHour ) {
+      inputBlock.addClass("past");
+    } else if ( hourIntervalObject.universalTime == currentHour) {
+      inputBlock.addClass("present");
+    } else {
+      inputBlock.addClass("future");
+    }
+  }
+  });
