@@ -94,6 +94,14 @@ var hourIntervals = [
       hourBlock.text(`${hourIntervalObject.hour} PM`)
     }
 
+    // populates input field from localStorage
+    var getHour = hourBlock.text();
+    localStorage.getItem(getHour);
+    inputBlock.attr("placeholder", `${hourIntervalObject.appointment}`);
+    inputBlock.attr("value", localStorage.getItem(getHour));
+
+
+    // conditions for displaying the colors of the input
     if ( hourIntervalObject.universalTime < currentHour ) {
       inputBlock.addClass("past");
     } else if ( hourIntervalObject.universalTime == currentHour) {
@@ -102,4 +110,14 @@ var hourIntervals = [
       inputBlock.addClass("future");
     }
   }
+
+
+  // listens to clicks on button
+    //on click, the user's input and the hour corresponding to it are saved in local storage
+    $(".saveBtn").on("click", function(event) {
+      event.preventDefault();
+      var userInput = $(this).siblings(".textInput").val();
+      var inputHour = $(this).siblings(".hour").text();
+      localStorage.setItem(inputHour, userInput);
+    })
   });
