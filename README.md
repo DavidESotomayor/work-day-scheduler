@@ -6,7 +6,7 @@ This repository houses the program of a _**workday scheduler**_ completely creat
 
 Here is a screenshot of the program...
 
-![WorkDay_Scheduler](img\workdayscheduler.png)
+![WorkDay_Scheduler](img/workdayscheduler.png)
 
 ## Using the Scheduler
 
@@ -19,7 +19,7 @@ The time blocks also change color dynamically according to the current time:
 
 Here is a demostration of the dynamic color changes...
 
-![workday_gif](img\workday.gif)
+![workday_gif](img/workday.gif)
 
 ## Appreciation
 
