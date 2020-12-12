@@ -4,7 +4,7 @@ $(document).ready(function () {
   var hourBlock = $(".hour")
   var inputBlock = $("input")
   var currentHour = moment().format("HH") // current time to check against past, present, and future
-
+  var schedulerLocal = (JSON.parse(localStorage.getItem('planner')) || {});
   // array of objects that correspond to scheduler rows
   // objects hold the hour, the corresponding hour in universal time, and an empty appointment
   var hourIntervals = [
@@ -93,9 +93,10 @@ $(document).ready(function () {
     
     // populates input field from localStorage
     var getHour = hourBlock.text();
-    localStorage.getItem(getHour);
     inputBlock.attr("placeholder", `${hourIntervalObject.appointment}`);
-    inputBlock.attr("value", localStorage.getItem(getHour));
+    if (schedulerLocal[getHour]) {
+      inputBlock.attr("value", schedulerLocal[getHour])
+    }
 
     // conditions for displaying the colors of the input
     if (hourIntervalObject.universalTime < currentHour) {
@@ -113,6 +114,11 @@ $(document).ready(function () {
     event.preventDefault();
     var userInput = $(this).siblings(".textInput").val();
     var inputHour = $(this).siblings(".hour").text();
-    localStorage.setItem(inputHour, userInput);
+    var plannerStorage = (JSON.parse(localStorage.getItem('planner')) || {})
+    if ( plannerStorage ) {
+      localStorage.setItem('planner', JSON.stringify({...plannerStorage,...{ [inputHour]: userInput }}));
+    } else {
+      localStorage.setItem('planner', JSON.stringify({ [inputHour]: userInput} ));
+    }
   })
 });
