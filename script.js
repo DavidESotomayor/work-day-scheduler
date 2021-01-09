@@ -62,7 +62,7 @@ $(document).ready(function () {
 
   // Current Time
   function liveTime() {
-    $('#currentDay').text(moment().format('dddd, MMMM YYYY H:mm:ss a'));
+    $('#currentDay').text(moment().format('dddd, MMMM Do YYYY H:mm:ss a'));
   }
   setInterval(liveTime, 1000);
 
